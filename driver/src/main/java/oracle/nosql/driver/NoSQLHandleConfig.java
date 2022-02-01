@@ -168,6 +168,12 @@ public class NoSQLHandleConfig implements Cloneable {
     private int sslSessionTimeout = 0;
 
     /**
+     * The timeout limit of SSH handshake, or 0 if not configured by
+     * the user.
+     */
+    private int sslHandshakeTimeoutMs = 0;
+
+    /**
      * Cloud service only.
      *
      * The default compartment name or ocid, if set. This may be null
@@ -1013,6 +1019,15 @@ public class NoSQLHandleConfig implements Cloneable {
     }
 
     /**
+     * Returns the configured SSL handshake timeout, in milliseconds.
+     *
+     * @return the timeout, in milliseconds, or 0 if it has not been set
+     */
+    public int getSSLHandshakeTimeout() {
+        return sslHandshakeTimeoutMs;
+    }
+
+    /**
      * Set SSL cipher suites to enable, in the order of preference. null to
      * use default cipher suites.
      *
@@ -1071,7 +1086,7 @@ public class NoSQLHandleConfig implements Cloneable {
     }
 
     /**
-     * Set the timeout for the cached SSL session objects, in seconds. 0 to
+     * Sets the timeout for the cached SSL session objects, in seconds. 0 to
      * use the default value, no limit. When the timeout limit is exceeded for
      * a session, the SSLSession object is invalidated and future connections
      * cannot resume or rejoin the session.
@@ -1087,6 +1102,26 @@ public class NoSQLHandleConfig implements Cloneable {
                 "be a positive value or zero");
         }
         this.sslSessionTimeout = timeout;
+        return this;
+    }
+
+    /**
+     * Sets the timeout for the SSL handshake, in milliseconds. 0 to use the
+     * default value, 3000 milliseconds. In general the default works. This
+     * value can be set to help debug suspected SSL issues and force
+     * retries within the request timeout period.
+     *
+     * @param timeout the SSL handshake timeout
+     *
+     * @return this
+     */
+    public NoSQLHandleConfig setSSLHandshakeTimeout(int timeout) {
+        if (timeout < 0) {
+            throw new IllegalArgumentException(
+                "NoSQLHandleConfig.setSSLHandshakeTimeout: timeout must " +
+                "be a positive value or zero");
+        }
+        this.sslHandshakeTimeoutMs = timeout;
         return this;
     }
 

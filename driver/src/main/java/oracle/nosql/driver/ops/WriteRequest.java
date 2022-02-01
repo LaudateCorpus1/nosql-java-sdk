@@ -65,4 +65,12 @@ public abstract class WriteRequest extends Request {
     public boolean doesWrites() {
         return true;
     }
+
+    /**
+     * @hidden
+     */
+    @Override
+    public boolean shouldRetry() {
+        return false;
+    }
 }

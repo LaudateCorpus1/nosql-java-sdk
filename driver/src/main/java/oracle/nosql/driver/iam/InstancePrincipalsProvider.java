@@ -287,7 +287,7 @@ public class InstancePrincipalsProvider
             HttpClient client = null;
             try {
                 client = new HttpClient(METADATA_SERVICE_HOST, 80,
-                                        0, 0, 0, null, "InstanceMDClient",
+                                        0, 0, 0, null, 0, "InstanceMDClient",
                                         logger);
                 HttpResponse response = HttpRequestUtil.doGetRequest
                     (client, instanceMDURL, headers(), timeout, logger);

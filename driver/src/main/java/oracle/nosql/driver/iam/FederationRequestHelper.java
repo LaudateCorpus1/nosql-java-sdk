@@ -96,7 +96,7 @@ class FederationRequestHelper {
         }
         if (scheme.equalsIgnoreCase("http")) {
             return new HttpClient(endpoint.getHost(), endpoint.getPort(),
-                                  0, 0, 0, null, "FederationClient", logger);
+                                  0, 0, 0, null, 0, "FederationClient", logger);
         }
 
         SslContext sslCtx = null;
@@ -108,7 +108,7 @@ class FederationRequestHelper {
         }
 
         return new HttpClient(endpoint.getHost(), 443, 0, 0, 0,
-                              sslCtx, "FederationClient", logger);
+                              sslCtx, 0, "FederationClient", logger);
     }
 
     /*

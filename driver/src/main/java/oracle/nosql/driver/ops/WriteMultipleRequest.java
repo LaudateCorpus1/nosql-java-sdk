@@ -276,4 +276,12 @@ public class WriteMultipleRequest extends Request {
             return request;
         }
     }
+
+    /**
+     * @hidden
+     */
+    @Override
+    public boolean shouldRetry() {
+        return false;
+    }
 }
